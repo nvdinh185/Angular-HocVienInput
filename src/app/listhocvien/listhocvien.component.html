@@ -1,0 +1,15 @@
+<div *ngIf="isShow">
+  <button (click)="isShowAdd=!isShowAdd; isShow=!isShow">Them hoc vien</button>
+  <button (click)="isShowEdit=!isShowEdit; isShow=!isShow">Sua hoc vien</button>
+  <button (click)="isShowDel=!isShowDel; isShow=!isShow">Xoa hoc vien</button>
+</div>
+<form (ngSubmit)="addHV(HocVienForm)" #HocVienForm="ngForm" *ngIf="isShowAdd">
+  <input placeholder="nhap id" ngModel #txtId="ngModel" name="id" required />
+  <span class="error" *ngIf="txtId.touched && txtId?.errors?.required">Yeu cau nhap!</span><br /><br />
+  <input placeholder="ten hoc vien" ngModel #txtTen="ngModel" name="ten" required />
+  <span class="error" *ngIf="txtTen.touched && txtTen?.errors?.required">Yeu cau nhap!</span><br /><br />
+  <input [disabled]="HocVienForm.invalid" type="submit" value="Them" />
+</form>
+<div *ngFor="let objHV of arHocVien" id="hocvien">
+  <app-hocvien id="{{objHV.id}}" ten="{{objHV.ten}}" tuoi={{objHV.tuoi}}></app-hocvien>
+</div>
