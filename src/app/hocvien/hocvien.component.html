@@ -1,3 +1,8 @@
 <h5>ID: {{ id }}</h5>
-<h4>Ten: {{ ten }}</h4>
-<p>Tuoi: {{ tuoi }}</p>
+<h4>
+    Ten: <span *ngIf="!isShowEdit">{{ ten }}</span>
+    <input *ngIf="isShowEdit" [placeholder]="ten" [(ngModel)]="newName" />
+</h4>
+<p>Tuoi: <span *ngIf="!isShowEdit">{{ tuoi }}</span>
+    <input *ngIf="isShowEdit" placeholder="{{ tuoi }}" [(ngModel)]="newAge" /></p>
+<button *ngIf="isShowEdit" (click)="editHV()">Edit</button>
