@@ -27,7 +27,6 @@ export class ListhocvienComponent implements OnInit {
   isShowAdd = false;
   isShowDel = false;
   isShowEdit = false;
-  newName;
   isExist(id) {
     const index = this.arHocVien.findIndex(e => e.id == id);
     if (index == -1) return false;
