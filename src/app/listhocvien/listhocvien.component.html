@@ -20,7 +20,7 @@
 </form>
 <div *ngFor="let objHV of arHocVien" id="hocvien">
   <div *ngIf="getShowStatus(objHV.tuoi)">
-    <app-hocvien [id]="objHV.id" [ten]="objHV.ten" [tuoi]=objHV.tuoi [isShowEdit]="isShowEdit" (editClick)="onClick($event)"></app-hocvien>
+    <app-hocvien id="{{objHV.id}}" [ten]="objHV.ten" [tuoi]=objHV.tuoi [isShowEdit]="isShowEdit" (editClick)="onClick($event)"></app-hocvien>
     <button *ngIf="isShowDel" (click)="deleteHV(objHV.id)">Xoa</button>
   </div>
 </div>
