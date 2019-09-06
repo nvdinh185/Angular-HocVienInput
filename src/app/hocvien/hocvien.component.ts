@@ -8,20 +8,20 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class HocvienComponent implements OnInit {
   newName;
   newAge;
-  constructor() {}
+  constructor() { }
   ngOnInit() {
   }
   @Input() id: String;
   @Input() ten: String;
   @Input() tuoi: number;
   @Input() isShowEdit: boolean;
-  
+
   @Output() editClick = new EventEmitter<any>();
-  
-  editHV(){
-    this.editClick.emit({id: this.id, name: this.newName, age: this.newAge});
-    this.newName='';
-    this.newAge='';
+
+  editHV() {
+    this.editClick.emit({ id: this.id, name: this.newName, age: this.newAge });
+    this.newName = '';
+    this.newAge = '';
   }
 
 }

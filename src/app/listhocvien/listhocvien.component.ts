@@ -6,14 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./listhocvien.component.css']
 })
 export class ListhocvienComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-    this.arHocVien.sort(function (a, b) {
-      return b.tuoi - a.tuoi;
-    });
-  }
+  filterStatus = 'tat_ca';
+  isShow = true;
+  isShowAdd = false;
+  isShowDel = false;
+  isShowEdit = false;
+  newName;
 
   arHocVien = [
     { id: "hv1", ten: "Nguyen Van Dinh", tuoi: 27 },
@@ -22,16 +20,29 @@ export class ListhocvienComponent implements OnInit {
     { id: "hv4", ten: "Trần Thị Hảo", tuoi: 25 },
     { id: "hv5", ten: "Nguyễn Như Quỳnh", tuoi: 18 },
   ];
-  filterStatus = 'tat_ca';
-  isShow = true;
-  isShowAdd = false;
-  isShowDel = false;
-  isShowEdit = false;
+  constructor() { }
+
+  ngOnInit() {
+    //sắp xếp danh sách giảm dần tuổi
+    this.arHocVien.sort((a, b) => {
+      return b.tuoi - a.tuoi;
+    });
+  }
+
+  /**
+   * Hàm kiểm tra mã học viên đã tồn tại hay chưa?
+   * @param id 
+   */
   isExist(id) {
     const index = this.arHocVien.findIndex(e => e.id == id);
     if (index == -1) return false;
     return true;
   }
+
+  /**
+   * Thêm học viên mới vào danh sách
+   * @param HocVienForm 
+   */
   addHV(HocVienForm) {
     var id = HocVienForm.value.id;
     if (this.isExist(id)) {
@@ -48,6 +59,10 @@ export class ListhocvienComponent implements OnInit {
     }
   }
 
+  /**
+   * Hàm xóa học viên dựa vào id
+   * @param id 
+   */
   deleteHV(id) {
     const index = this.arHocVien.findIndex(e => e.id == id);
     this.arHocVien.splice(index, 1);
@@ -55,13 +70,22 @@ export class ListhocvienComponent implements OnInit {
     this.ngOnInit();
   }
 
+  /**
+   * Hàm này để sửa học viên dựa vào id
+   * @param n 
+   */
   onClick(n) {
     const index = this.arHocVien.findIndex(e => e.id == n.id);
     this.arHocVien[index].ten = typeof (n.name) != "undefined" ? n.name : this.arHocVien[index].ten;
     this.arHocVien[index].tuoi = typeof (n.age) != "undefined" ? n.age : this.arHocVien[index].tuoi;
+    this.ngOnInit();
     alert("Da sua thanh cong!");
   }
 
+  /**
+   * Xác định trạng thái hiển thị dựa vào tuổi học viên
+   * @param tuoi 
+   */
   getShowStatus(tuoi){
     var txtTatCa = this.filterStatus == 'tat_ca';
     var txtTren20 = this.filterStatus == 'tren20' && tuoi>=20;

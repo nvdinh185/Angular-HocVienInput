@@ -1,16 +1,15 @@
+<!-- Hiện các nút thêm, sửa và xóa học viên -->
 <div *ngIf="isShow">
   <button (click)="isShowAdd=!isShowAdd; isShow=!isShow">Them hoc vien</button>
   <button (click)="isShowEdit=!isShowEdit; isShow=!isShow">Sua hoc vien</button>
   <button (click)="isShowDel=!isShowDel; isShow=!isShow">Xoa hoc vien</button>
 </div>
-<select [(ngModel)]="filterStatus">
-  <option value="tat_ca">Tat ca</option>
-  <option value="tren20">Tren 20 tuoi</option>
-  <option value="duoi20">Duoi 20 tuoi</option>
-</select>
+
+<!-- Xác nhận khi sửa xong hoặc xóa xong -->
 <button (click)="isShowDel=!isShowDel; isShow = !isShow" *ngIf="isShowDel">Xoa xong</button>
 <button (click)="isShowEdit=!isShowEdit; isShow = !isShow" *ngIf="isShowEdit">Sua xong</button>
 
+<!-- form để thêm học viên -->
 <form (ngSubmit)="addHV(HocVienForm)" #HocVienForm="ngForm" *ngIf="isShowAdd">
   <input placeholder="nhap id" ngModel #txtId="ngModel" name="id" required />
   <span class="error" *ngIf="txtId.touched && txtId?.errors?.required">Yeu cau nhap!</span><br /><br />
@@ -18,9 +17,18 @@
   <span class="error" *ngIf="txtTen.touched && txtTen?.errors?.required">Yeu cau nhap!</span><br /><br />
   <input [disabled]="HocVienForm.invalid" type="submit" value="Them" />
 </form>
+
+<!-- Hiện ô các tùy chọn hiển thị -->
+<select [(ngModel)]="filterStatus">
+  <option value="tat_ca">Tat ca</option>
+  <option value="tren20">Tren 20 tuoi</option>
+  <option value="duoi20">Duoi 20 tuoi</option>
+</select>
+
+<!-- hiển thị danh sách học viên -->
 <div *ngFor="let objHV of arHocVien" id="hocvien">
   <div *ngIf="getShowStatus(objHV.tuoi)">
-    <app-hocvien id="{{objHV.id}}" [ten]="objHV.ten" [tuoi]=objHV.tuoi [isShowEdit]="isShowEdit" (editClick)="onClick($event)"></app-hocvien>
+    <app-hocvien [id]="objHV.id" [ten]="objHV.ten" [tuoi]=objHV.tuoi [isShowEdit]="isShowEdit" (editClick)="onClick($event)"></app-hocvien>
     <button *ngIf="isShowDel" (click)="deleteHV(objHV.id)">Xoa</button>
   </div>
 </div>
